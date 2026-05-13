@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forma za prijem zahteva / Development Request Intake Form — 24Safe</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue:      #1A56A0;
+  --blue-lt:   #EBF2FB;
+  --blue-mid:  #4B80C4;
+  --green:     #1E9E5A;
+  --green-lt:  #E6F7EE;
+  --red:       #C0392B;
+  --red-lt:    #FDECEA;
+  --amber:     #D4720A;
+  --amber-lt:  #FFF3E0;
+  --gray-50:   #F8F9FC;
+  --gray-100:  #EFF1F6;
+  --gray-200:  #DDE1EC;
+  --gray-400:  #9DA3B8;
+  --gray-600:  #5A6075;
+  --gray-900:  #181C2E;
+  --font:      'Sora', sans-serif;
+  --mono:      'JetBrains Mono', monospace;
+}
+
+body {
+  font-family: var(--font);
+  background: #F0F3FA;
+  color: var(--gray-900);
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--blue);
+  padding: 14px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.header-brand { color: #fff; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; }
+.header-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── HERO STRIP ── */
+.hero {
+  background: var(--blue);
+  padding: 36px 40px 52px;
+  position: relative;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 32px;
+  background: #F0F3FA;
+  clip-path: ellipse(60% 100% at 50% 100%);
+}
+.hero-inner { max-width: 780px; margin: 0 auto; }
+.hero h1 {
+  font-size: clamp(20px, 3.5vw, 28px);
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.hero h2 {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  font-style: italic;
+  margin-bottom: 16px;
+}
+.hero-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.5;
+}
+.hero-notice .sep { color: rgba(255,255,255,0.3); }
+
+/* ── PAGE BODY ── */
+.page { max-width: 780px; margin: 0 auto; padding: 32px 20px 0; }
+
+/* ── SECTION BLOCK ── */
+.section {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 1px 4px rgba(20,40,100,0.06), 0 4px 18px rgba(20,40,100,0.05);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: var(--blue-lt);
+  border-bottom: 2px solid var(--blue);
+}
+.section-letter {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--blue);
+  line-height: 1.2;
+}
+.section-title .en {
+  font-weight: 300;
+  font-style: italic;
+  color: var(--blue-mid);
+  font-size: 13px;
+  margin-left: 6px;
+}
+.section-body {
+  padding: 22px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.section-body.single { grid-template-columns: 1fr; }
+.section-body.three  { grid-template-columns: 1fr 1fr 1fr; }
+
+@media (max-width: 580px) {
+  .section-body, .section-body.three { grid-template-columns: 1fr; }
+  .page { padding: 24px 14px 0; }
+  .header, .hero { padding-left: 20px; padding-right: 20px; }
+}
+
+/* ── FIELD ── */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.full { grid-column: 1 / -1; }
+
+.field-label {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-900);
+  line-height: 1.3;
+}
+.field-label .en {
+  font-size: 11px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--blue-mid);
+}
+.req-tag {
+  font-size: 10px;
+  font-family: var(--mono);
+  font-weight: 500;
+  color: var(--red);
+  background: var(--red-lt);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.opt-tag {
+  font-size: 10px;
+  font-family: var(--mono);
+  font-weight: 500;
+  color: var(--gray-400);
+  background: var(--gray-100);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+  font-family: var(--font);
+  font-size: 13.5px;
+  color: var(--gray-900);
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 9px 12px;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s, background .15s;
+  width: 100%;
+  -webkit-appearance: none;
+}
+input:focus, textarea:focus {
+  border-color: var(--blue);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(26,86,160,0.09);
+}
+input.error, textarea.error {
+  border-color: var(--red);
+  background: var(--red-lt);
+}
+textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+.error-msg {
+  font-size: 11px;
+  color: var(--red);
+  display: none;
+  font-style: italic;
+}
+.error-msg.show { display: block; }
+
+/* ── RADIO CHOICES ── */
+.choices { display: flex; flex-direction: column; gap: 7px; }
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--gray-50);
+  transition: border-color .12s, background .12s;
+  user-select: none;
+}
+.choice:hover { border-color: var(--blue-mid); background: var(--blue-lt); }
+.choice.sel   { border-color: var(--blue);     background: var(--blue-lt); }
+.choice input { display: none; }
+.radio-dot {
+  width: 17px; height: 17px;
+  border-radius: 50%;
+  border: 2px solid var(--gray-400);
+  background: #fff;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .12s, background .12s;
+}
+.choice.sel .radio-dot { border-color: var(--blue); background: var(--blue); }
+.choice.sel .radio-dot::after { content:''; width:5px; height:5px; border-radius:50%; background:#fff; }
+
+/* priority colours */
+.choice.p-crit.sel { border-color:var(--red);   background:var(--red-lt);   }
+.choice.p-crit.sel .radio-dot { border-color:var(--red);   background:var(--red);   }
+.choice.p-high.sel { border-color:var(--amber); background:var(--amber-lt); }
+.choice.p-high.sel .radio-dot { border-color:var(--amber); background:var(--amber); }
+.choice.p-med.sel  { border-color:var(--blue);  background:var(--blue-lt);  }
+.choice.p-med.sel  .radio-dot { border-color:var(--blue);  background:var(--blue);  }
+.choice.p-low.sel  { border-color:var(--green); background:var(--green-lt); }
+.choice.p-low.sel  .radio-dot { border-color:var(--green); background:var(--green); }
+
+.choice-sr { font-size: 13px; font-weight: 500; color: var(--gray-900); line-height: 1.3; }
+.choice-en { font-size: 11px; color: var(--gray-400); font-style: italic; display: block; margin-top: 1px; }
+
+/* ── INTERNAL BAR ── */
+.internal {
+  background: var(--gray-50);
+  border: 1.5px dashed var(--gray-200);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 0 24px 22px;
+}
+.int-title {
+  font-size: 10px;
+  font-family: var(--mono);
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+.int-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+.int-grid input { font-size: 12px; padding: 7px 10px; }
+@media (max-width: 560px) { .int-grid { grid-template-columns: 1fr 1fr; } }
+
+/* ── SUBMIT ── */
+.submit-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px 24px;
+  border-top: 1px solid var(--gray-100);
+}
+.submit-note { font-size: 12px; color: var(--gray-400); font-style: italic; }
+.btn-submit {
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  border-radius: 9px;
+  padding: 12px 32px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(26,86,160,0.28);
+  transition: opacity .15s, transform .1s;
+  letter-spacing: 0.01em;
+}
+.btn-submit:hover { opacity: 0.9; }
+.btn-submit:active { transform: scale(0.98); }
+
+/* ── SUCCESS ── */
+.success {
+  display: none;
+  background: #fff;
+  border-radius: 14px;
+  text-align: center;
+  padding: 64px 32px;
+  box-shadow: 0 1px 4px rgba(20,40,100,0.06), 0 4px 18px rgba(20,40,100,0.05);
+  margin-bottom: 20px;
+  animation: fadeUp .3s ease;
+}
+.success.show { display: block; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.success-icon { font-size: 40px; margin-bottom: 16px; }
+.success h3 { font-size: 22px; font-weight: 600; margin-bottom: 8px; color: var(--gray-900); }
+.success p  { font-size: 14px; color: var(--gray-600); max-width: 420px; margin: 0 auto 6px; line-height: 1.6; }
+.ref { display:inline-block; margin-top:20px; background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:10px 22px; font-family:var(--mono); font-size:13px; color:var(--blue); letter-spacing:0.08em; }
+.btn-reset { margin-top:24px; background:transparent; border:1.5px solid var(--gray-200); border-radius:9px; padding:9px 22px; font-family:var(--font); font-size:13px; color:var(--gray-600); cursor:pointer; transition:border-color .15s; }
+.btn-reset:hover { border-color:var(--blue-mid); color:var(--blue); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">24Safe — Razvojni tim</div>
+  <div class="header-tag">SR / EN · Intake Form</div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <h1>Forma za prijem zahteva</h1>
+    <h2>Development Request Intake Form</h2>
+    <div class="hero-notice">
+      Sve zahteve podnosi isključivo kroz ovu formu.
+      <span class="sep">|</span>
+      <em>All requests must be submitted through this form only.</em>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="formWrap">
+
+  <!-- ── A: PODNOSILAC ── -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-letter">A</div>
+      <div class="section-title">Podnosilac zahteva <span class="en">/ Submitter details</span></div>
+    </div>
+    <div class="section-body">
+
+      <div class="field">
+        <div class="field-label">Ime i prezime <span class="en">Full name</span> <span class="req-tag">* obavezno</span></div>
+        <input type="text" id="fullname" placeholder="npr. Marko Marković">
+        <div class="error-msg" id="err-fullname">Polje je obavezno / Required</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Uloga / tim <span class="en">Role / team</span> <span class="req-tag">* obavezno</span></div>
+        <input type="text" id="role" placeholder="npr. Account Manager, BA, Product Owner...">
+        <div class="error-msg" id="err-role">Polje je obavezno / Required</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Datum podnošenja <span class="en">Submission date</span> <span class="req-tag">* obavezno</span></div>
+        <input type="date" id="subdate">
+        <div class="error-msg" id="err-subdate">Unesite datum / Required</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Kontakt (mejl ili Teams) <span class="en">Contact</span> <span class="req-tag">* obavezno</span></div>
+        <input type="text" id="contact" placeholder="ime@24safe.rs">
+        <div class="error-msg" id="err-contact">Polje je obavezno / Required</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── B: OPIS ── -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-letter">B</div>
+      <div class="section-title">Opis zahteva <span class="en">/ Request description</span></div>
+    </div>
+    <div class="section-body single">
+
+      <div class="field">
+        <div class="field-label">Naziv zahteva <span class="en">Request title</span> <span class="req-tag">* obavezno</span></div>
+        <input type="text" id="title" placeholder="Kratki opis u jednoj rečenici / One-sentence summary">
+        <div class="error-msg" id="err-title">Polje je obavezno / Required</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Opis problema ili potrebe <span class="en">Description of problem or need</span> <span class="req-tag">* obavezno</span></div>
+        <textarea id="description" rows="4" placeholder="Šta se dešava? Šta je potrebno? / What is happening? What is needed?"></textarea>
+        <div class="error-msg" id="err-description">Polje je obavezno / Required</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Očekivani ishod <span class="en">Expected outcome</span> <span class="req-tag">* obavezno</span></div>
+        <textarea id="outcome" rows="3" placeholder="Kako izgleda uspešno rešenje? / What does success look like?"></textarea>
+        <div class="error-msg" id="err-outcome">Polje je obavezno / Required</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Poslovno opravdanje <span class="en">Business justification</span> <span class="req-tag">* obavezno</span></div>
+        <textarea id="justification" rows="3" placeholder="Zašto je ovo potrebno? Šta se dešava ako se ne uradi? / Why needed? What is the impact if not done?"></textarea>
+        <div class="error-msg" id="err-justification">Polje je obavezno / Required</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── C: KLASIFIKACIJA ── -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-letter">C</div>
+      <div class="section-title">Klasifikacija <span class="en">/ Classification</span></div>
+    </div>
+    <div class="section-body">
+
+      <div class="field full">
+        <div class="field-label">Tip zahteva <span class="en">Request type</span> <span class="req-tag">* obavezno</span></div>
+        <div class="choices" id="reqTypeGroup">
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="feature"><div class="radio-dot"></div><div><span class="choice-sr">Zahtev za novu funkcionalnost</span><span class="choice-en">Feature Request</span></div></label>
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="bug"><div class="radio-dot"></div><div><span class="choice-sr">Bag</span><span class="choice-en">Bug</span></div></label>
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="investigation"><div class="radio-dot"></div><div><span class="choice-sr">Istraga</span><span class="choice-en">Investigation</span></div></label>
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="integration"><div class="radio-dot"></div><div><span class="choice-sr">Problem sa integracijom</span><span class="choice-en">Integration Issue</span></div></label>
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="support"><div class="radio-dot"></div><div><span class="choice-sr">Podrška / Pitanje o korišćenju</span><span class="choice-en">Support / Usage Question</span></div></label>
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="operational"><div class="radio-dot"></div><div><span class="choice-sr">Operativna promena</span><span class="choice-en">Operational Change</span></div></label>
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="devops"><div class="radio-dot"></div><div><span class="choice-sr">Infrastruktura / DevOps</span><span class="choice-en">Infrastructure / DevOps</span></div></label>
+        </div>
+        <div class="error-msg" id="err-reqTypeGroup">Izaberite tip / Please select a type</div>
+      </div>
+
+      <div class="field full">
+        <div class="field-label">Prioritet <span class="en">Priority</span> <span class="req-tag">* obavezno</span></div>
+        <div class="choices" id="prioGroup">
+          <label class="choice p-crit" data-group="prioGroup"><input type="radio" name="priority" value="critical"><div class="radio-dot"></div><div><span class="choice-sr">Kritičan — produkcija je dole</span><span class="choice-en">Critical — production is down</span></div></label>
+          <label class="choice p-high" data-group="prioGroup"><input type="radio" name="priority" value="high"><div class="radio-dot"></div><div><span class="choice-sr">Visok — značajan uticaj, nema zaobilaznog rešenja</span><span class="choice-en">High — significant impact, no workaround</span></div></label>
+          <label class="choice p-med" data-group="prioGroup"><input type="radio" name="priority" value="medium"><div class="radio-dot"></div><div><span class="choice-sr">Srednji — važno, postoji zaobilazno rešenje</span><span class="choice-en">Medium — important, workaround exists</span></div></label>
+          <label class="choice p-low" data-group="prioGroup"><input type="radio" name="priority" value="low"><div class="radio-dot"></div><div><span class="choice-sr">Nizak — bilo bi lepo imati</span><span class="choice-en">Low — nice to have</span></div></label>
+        </div>
+        <div class="error-msg" id="err-prioGroup">Izaberite prioritet / Please select a priority</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── D: KONTEKST ── -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-letter">D</div>
+      <div class="section-title">Kontekst i dokazi <span class="en">/ Context &amp; evidence</span></div>
+    </div>
+    <div class="section-body">
+
+      <div class="field full">
+        <div class="field-label">Izvor zahteva <span class="en">Request source</span> <span class="req-tag">* obavezno</span></div>
+        <input type="text" id="source" placeholder="Koji klijent, sistem, tim ili integracija? / Which client, system or team?">
+        <div class="error-msg" id="err-source">Polje je obavezno / Required</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Povezana integracija <span class="en">Related integration</span> <span class="opt-tag">po potrebi</span></div>
+        <input type="text" id="integration" placeholder="Naziv eksternog sistema / External system name">
+      </div>
+
+      <div class="field">
+        <div class="field-label">Dokazi / screenshots <span class="en">Evidence</span> <span class="opt-tag">po potrebi</span></div>
+        <textarea id="evidence" rows="3" placeholder="Opišite priložene fajlove ili linkove / Describe attached files or links"></textarea>
+      </div>
+
+      <div class="field full">
+        <div class="field-label">Koraci za reprodukciju — samo za bagove <span class="en">Steps to reproduce — bugs only</span> <span class="opt-tag">po potrebi</span></div>
+        <textarea id="steps" rows="3" placeholder="1. Otvorite...&#10;2. Kliknite...&#10;3. Vidite grešku... / 1. Open... 2. Click... 3. See error..."></textarea>
+      </div>
+
+      <div class="field full">
+        <div class="field-label">Dodatne napomene <span class="en">Additional notes</span> <span class="opt-tag">po potrebi</span></div>
+        <textarea id="notes" rows="3" placeholder="Sve ostalo što smatraš relevantnim / Anything else you consider relevant"></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── INTERNAL USE ── -->
+  <div class="internal">
+    <div class="int-title">Za internu upotrebu / For internal use only</div>
+    <div class="int-grid">
+      <input type="text" placeholder="Datum prijema">
+      <input type="text" placeholder="Klasifikovao/la">
+      <input type="text" placeholder="Jira tiket br.">
+      <input type="text" placeholder="Status">
+    </div>
+  </div>
+
+  <!-- ── SUBMIT ── -->
+  <div class="section">
+    <div class="submit-row">
+      <span class="submit-note">Šalje se na: <strong>helpdesk.24safe@coris.rs</strong></span>
+      <button class="btn-submit" onclick="submitForm()">Pošalji zahtev / Submit →</button>
+    </div>
+  </div>
+
+  <!-- ── SUCCESS ── -->
+  <div class="success" id="successScreen">
+    <div class="success-icon">✓</div>
+    <h3>Zahtev je primljen! / Request submitted!</h3>
+    <p>Tvoj zahtev je uspešno poslat razvojnom timu. Triage vlasnik će ga pregledati i biti u kontaktu.</p>
+    <p><em>Your request has been successfully submitted. The triage owner will review it and be in touch.</em></p>
+    <div class="ref" id="refCode">REF-XXXXXXXX</div>
+    <br>
+    <button class="btn-reset" onclick="resetForm()">← Novi zahtev / New request</button>
+  </div>
+
+</div>
+
+<script>
+  document.getElementById('subdate').valueAsDate = new Date();
+
+  function pick(label, groupId) {
+    document.querySelectorAll('#' + groupId + ' .choice').forEach(c => c.classList.remove('sel'));
+    label.classList.add('sel');
+    const err = document.getElementById('err-' + groupId);
+    if (err) err.classList.remove('show');
+  }
+
+  document.querySelectorAll('.choice input[type="radio"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      var label = this.closest('.choice');
+      var groupId = label.getAttribute('data-group');
+      pick(label, groupId);
+    });
+  });
+
+  document.querySelectorAll('.choice').forEach(function(label) {
+    label.addEventListener('click', function(e) {
+      var radio = this.querySelector('input[type="radio"]');
+      if (radio) {
+        radio.checked = true;
+        var groupId = this.getAttribute('data-group');
+        pick(this, groupId);
+      }
+    });
+  });
+
+  function validate() {
+    let ok = true;
+    const textFields = ['fullname','role','subdate','contact','title','description','outcome','justification','source'];
+    textFields.forEach(id => {
+      const el = document.getElementById(id);
+      const err = document.getElementById('err-' + id);
+      if (!el.value.trim()) {
+        el.classList.add('error');
+        if (err) err.classList.add('show');
+        ok = false;
+        if (ok === false && el.getBoundingClientRect().top < 0) {}
+      } else {
+        el.classList.remove('error');
+        if (err) err.classList.remove('show');
+      }
+    });
+    ['reqTypeGroup','prioGroup'].forEach(id => {
+      const name = id === 'reqTypeGroup' ? 'reqtype' : 'priority';
+      const err = document.getElementById('err-' + id);
+      if (!document.querySelector('input[name="' + name + '"]:checked')) {
+        if (err) err.classList.add('show');
+        ok = false;
+      } else {
+        if (err) err.classList.remove('show');
+      }
+    });
+    if (!ok) {
+      const firstErr = document.querySelector('.error, .error-msg.show');
+      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    return ok;
+  }
+
+  function submitForm() {
+    if (!validate()) return;
+    const ref = 'REF-' + Date.now().toString(36).toUpperCase().slice(-8);
+
+    const g = id => (document.getElementById(id)||{}).value||'';
+    const rt = (document.querySelector('input[name="reqtype"]:checked')||{}).value||'';
+    const pr = (document.querySelector('input[name="priority"]:checked')||{}).value||'';
+    const typeMap = {feature:'Zahtev za novu funkcionalnost / Feature Request',bug:'Bag / Bug',investigation:'Istraga / Investigation',integration:'Problem sa integracijom / Integration Issue',support:'Podrška / Support',operational:'Operativna promena / Operational Change',devops:'Infrastruktura / DevOps'};
+    const prioMap = {critical:'Kritican / Critical',high:'Visok / High',medium:'Srednji / Medium',low:'Nizak / Low'};
+
+    const subject = encodeURIComponent('[' + ref + '] ' + (g('title')||'Novi zahtev'));
+
+    const body = encodeURIComponent(
+      'FORMA ZA PRIJEM ZAHTEVA / DEVELOPMENT REQUEST INTAKE FORM\n' +
+      'Ref: ' + ref + '\n' +
+      '='.repeat(50) + '\n\n' +
+      'A. PODNOSILAC / SUBMITTER\n' +
+      'Ime i prezime: ' + g('fullname') + '\n' +
+      'Uloga / tim:   ' + g('role') + '\n' +
+      'Datum:         ' + g('subdate') + '\n' +
+      'Kontakt:       ' + g('contact') + '\n\n' +
+      'B. OPIS ZAHTEVA / REQUEST DESCRIPTION\n' +
+      'Naziv:             ' + g('title') + '\n' +
+      'Opis problema:     ' + g('description') + '\n' +
+      'Ocekivani ishod:   ' + g('outcome') + '\n' +
+      'Poslovno opravdanje: ' + g('justification') + '\n\n' +
+      'C. KLASIFIKACIJA / CLASSIFICATION\n' +
+      'Tip zahteva: ' + (typeMap[rt]||rt) + '\n' +
+      'Prioritet:   ' + (prioMap[pr]||pr) + '\n\n' +
+      'D. KONTEKST I DOKAZI / CONTEXT & EVIDENCE\n' +
+      'Izvor zahteva:  ' + g('source') + '\n' +
+      'Integracija:    ' + (g('integration')||'-') + '\n' +
+      'Dokazi:         ' + (g('evidence')||'-') + '\n' +
+      'Koraci repro:   ' + (g('steps')||'-') + '\n' +
+      'Napomene:       ' + (g('notes')||'-') + '\n'
+    );
+
+    const to  = 'helpdesk.24safe@coris.rs';
+    const cc  = 'stanislava.cajetinac@coris.rs';
+    window.location.href = 'mailto:' + to + '?cc=' + cc + '&subject=' + subject + '&body=' + body;
+
+    document.getElementById('refCode').textContent = ref;
+    document.getElementById('formWrap').querySelectorAll('.section, .internal').forEach(el => el.style.display = 'none');
+    document.getElementById('successScreen').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function resetForm() {
+    document.getElementById('formWrap').querySelectorAll('.section, .internal').forEach(el => el.style.display = '');
+    document.getElementById('successScreen').classList.remove('show');
+    document.querySelectorAll('input[type="text"], input[type="date"], textarea').forEach(el => { el.value = ''; el.classList.remove('error'); });
+    document.getElementById('subdate').valueAsDate = new Date();
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.choice').forEach(c => c.classList.remove('sel'));
+    document.querySelectorAll('.error-msg').forEach(e => e.classList.remove('show'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
