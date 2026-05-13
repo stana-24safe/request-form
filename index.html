@@ -437,20 +437,7 @@ textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
       <div class="section-title">Klasifikacija <span class="en">/ Classification</span></div>
     </div>
     <div class="section-body">
-<script>
-  document.querySelectorAll('.choice').forEach(function(label) {
-    label.addEventListener('click', function() {
-      var radio = this.querySelector('input[type="radio"]');
-      if (radio) {
-        radio.checked = true;
-        var groupId = this.getAttribute('data-group');
-        document.querySelectorAll('#' + groupId + ' .choice').forEach(function(c) { c.classList.remove('sel'); });
-        this.classList.add('sel');
-      }
-    });
-  });
-</script>
-      
+
       <div class="field full">
         <div class="field-label">Tip zahteva <span class="en">Request type</span> <span class="req-tag">* obavezno</span></div>
         <div class="choices" id="reqTypeGroup">
@@ -623,54 +610,28 @@ textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
     const subject = encodeURIComponent('[' + ref + '] ' + (g('title')||'Novi zahtev'));
 
     const body = encodeURIComponent(
-      'FORMA ZA PRIJEM ZAHTEVA / DEVELOPMENT REQUEST INTAKE FORM
-' +
-      'Ref: ' + ref + '
-' +
-      '='.repeat(50) + '
-
-' +
-      'A. PODNOSILAC / SUBMITTER
-' +
-      'Ime i prezime: ' + g('fullname') + '
-' +
-      'Uloga / tim:   ' + g('role') + '
-' +
-      'Datum:         ' + g('subdate') + '
-' +
-      'Kontakt:       ' + g('contact') + '
-
-' +
-      'B. OPIS ZAHTEVA / REQUEST DESCRIPTION
-' +
-      'Naziv:             ' + g('title') + '
-' +
-      'Opis problema:     ' + g('description') + '
-' +
-      'Ocekivani ishod:   ' + g('outcome') + '
-' +
-      'Poslovno opravdanje: ' + g('justification') + '
-
-' +
-      'C. KLASIFIKACIJA / CLASSIFICATION
-' +
-      'Tip zahteva: ' + (typeMap[rt]||rt) + '
-' +
-      'Prioritet:   ' + (prioMap[pr]||pr) + '
-
-' +
-      'D. KONTEKST I DOKAZI / CONTEXT & EVIDENCE
-' +
-      'Izvor zahteva:  ' + g('source') + '
-' +
-      'Integracija:    ' + (g('integration')||'-') + '
-' +
-      'Dokazi:         ' + (g('evidence')||'-') + '
-' +
-      'Koraci repro:   ' + (g('steps')||'-') + '
-' +
-      'Napomene:       ' + (g('notes')||'-') + '
-'
+      'FORMA ZA PRIJEM ZAHTEVA / DEVELOPMENT REQUEST INTAKE FORM\n' +
+      'Ref: ' + ref + '\n' +
+      '='.repeat(50) + '\n\n' +
+      'A. PODNOSILAC / SUBMITTER\n' +
+      'Ime i prezime: ' + g('fullname') + '\n' +
+      'Uloga / tim:   ' + g('role') + '\n' +
+      'Datum:         ' + g('subdate') + '\n' +
+      'Kontakt:       ' + g('contact') + '\n\n' +
+      'B. OPIS ZAHTEVA / REQUEST DESCRIPTION\n' +
+      'Naziv:             ' + g('title') + '\n' +
+      'Opis problema:     ' + g('description') + '\n' +
+      'Ocekivani ishod:   ' + g('outcome') + '\n' +
+      'Poslovno opravdanje: ' + g('justification') + '\n\n' +
+      'C. KLASIFIKACIJA / CLASSIFICATION\n' +
+      'Tip zahteva: ' + (typeMap[rt]||rt) + '\n' +
+      'Prioritet:   ' + (prioMap[pr]||pr) + '\n\n' +
+      'D. KONTEKST I DOKAZI / CONTEXT & EVIDENCE\n' +
+      'Izvor zahteva:  ' + g('source') + '\n' +
+      'Integracija:    ' + (g('integration')||'-') + '\n' +
+      'Dokazi:         ' + (g('evidence')||'-') + '\n' +
+      'Koraci repro:   ' + (g('steps')||'-') + '\n' +
+      'Napomene:       ' + (g('notes')||'-') + '\n'
     );
 
     const to  = 'helpdesk.24safe@coris.rs';
