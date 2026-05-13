@@ -437,7 +437,20 @@ textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
       <div class="section-title">Klasifikacija <span class="en">/ Classification</span></div>
     </div>
     <div class="section-body">
-
+<script>
+  document.querySelectorAll('.choice').forEach(function(label) {
+    label.addEventListener('click', function() {
+      var radio = this.querySelector('input[type="radio"]');
+      if (radio) {
+        radio.checked = true;
+        var groupId = this.getAttribute('data-group');
+        document.querySelectorAll('#' + groupId + ' .choice').forEach(function(c) { c.classList.remove('sel'); });
+        this.classList.add('sel');
+      }
+    });
+  });
+</script>
+      
       <div class="field full">
         <div class="field-label">Tip zahteva <span class="en">Request type</span> <span class="req-tag">* obavezno</span></div>
         <div class="choices" id="reqTypeGroup">
