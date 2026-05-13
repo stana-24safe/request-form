@@ -441,13 +441,13 @@ textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
       <div class="field full">
         <div class="field-label">Tip zahteva <span class="en">Request type</span> <span class="req-tag">* obavezno</span></div>
         <div class="choices" id="reqTypeGroup">
-          <label class="choice" onclick="pick(this,'reqTypeGroup')"><input type="radio" name="reqtype" value="feature"><div class="radio-dot"></div><div><span class="choice-sr">Zahtev za novu funkcionalnost</span><span class="choice-en">Feature Request</span></div></label>
-          <label class="choice" onclick="pick(this,'reqTypeGroup')"><input type="radio" name="reqtype" value="bug"><div class="radio-dot"></div><div><span class="choice-sr">Bag</span><span class="choice-en">Bug</span></div></label>
-          <label class="choice" onclick="pick(this,'reqTypeGroup')"><input type="radio" name="reqtype" value="investigation"><div class="radio-dot"></div><div><span class="choice-sr">Istraga</span><span class="choice-en">Investigation</span></div></label>
-          <label class="choice" onclick="pick(this,'reqTypeGroup')"><input type="radio" name="reqtype" value="integration"><div class="radio-dot"></div><div><span class="choice-sr">Problem sa integracijom</span><span class="choice-en">Integration Issue</span></div></label>
-          <label class="choice" onclick="pick(this,'reqTypeGroup')"><input type="radio" name="reqtype" value="support"><div class="radio-dot"></div><div><span class="choice-sr">Podrška / Pitanje o korišćenju</span><span class="choice-en">Support / Usage Question</span></div></label>
-          <label class="choice" onclick="pick(this,'reqTypeGroup')"><input type="radio" name="reqtype" value="operational"><div class="radio-dot"></div><div><span class="choice-sr">Operativna promena</span><span class="choice-en">Operational Change</span></div></label>
-          <label class="choice" onclick="pick(this,'reqTypeGroup')"><input type="radio" name="reqtype" value="devops"><div class="radio-dot"></div><div><span class="choice-sr">Infrastruktura / DevOps</span><span class="choice-en">Infrastructure / DevOps</span></div></label>
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="feature"><div class="radio-dot"></div><div><span class="choice-sr">Zahtev za novu funkcionalnost</span><span class="choice-en">Feature Request</span></div></label>
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="bug"><div class="radio-dot"></div><div><span class="choice-sr">Bag</span><span class="choice-en">Bug</span></div></label>
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="investigation"><div class="radio-dot"></div><div><span class="choice-sr">Istraga</span><span class="choice-en">Investigation</span></div></label>
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="integration"><div class="radio-dot"></div><div><span class="choice-sr">Problem sa integracijom</span><span class="choice-en">Integration Issue</span></div></label>
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="support"><div class="radio-dot"></div><div><span class="choice-sr">Podrška / Pitanje o korišćenju</span><span class="choice-en">Support / Usage Question</span></div></label>
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="operational"><div class="radio-dot"></div><div><span class="choice-sr">Operativna promena</span><span class="choice-en">Operational Change</span></div></label>
+          <label class="choice" data-group="reqTypeGroup"><input type="radio" name="reqtype" value="devops"><div class="radio-dot"></div><div><span class="choice-sr">Infrastruktura / DevOps</span><span class="choice-en">Infrastructure / DevOps</span></div></label>
         </div>
         <div class="error-msg" id="err-reqTypeGroup">Izaberite tip / Please select a type</div>
       </div>
@@ -455,10 +455,10 @@ textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
       <div class="field full">
         <div class="field-label">Prioritet <span class="en">Priority</span> <span class="req-tag">* obavezno</span></div>
         <div class="choices" id="prioGroup">
-          <label class="choice p-crit" onclick="pick(this,'prioGroup')"><input type="radio" name="priority" value="critical"><div class="radio-dot"></div><div><span class="choice-sr">Kritičan — produkcija je dole</span><span class="choice-en">Critical — production is down</span></div></label>
-          <label class="choice p-high" onclick="pick(this,'prioGroup')"><input type="radio" name="priority" value="high"><div class="radio-dot"></div><div><span class="choice-sr">Visok — značajan uticaj, nema zaobilaznog rešenja</span><span class="choice-en">High — significant impact, no workaround</span></div></label>
-          <label class="choice p-med"  onclick="pick(this,'prioGroup')"><input type="radio" name="priority" value="medium"><div class="radio-dot"></div><div><span class="choice-sr">Srednji — važno, postoji zaobilazno rešenje</span><span class="choice-en">Medium — important, workaround exists</span></div></label>
-          <label class="choice p-low"  onclick="pick(this,'prioGroup')"><input type="radio" name="priority" value="low"><div class="radio-dot"></div><div><span class="choice-sr">Nizak — bilo bi lepo imati</span><span class="choice-en">Low — nice to have</span></div></label>
+          <label class="choice p-crit" data-group="prioGroup"><input type="radio" name="priority" value="critical"><div class="radio-dot"></div><div><span class="choice-sr">Kritičan — produkcija je dole</span><span class="choice-en">Critical — production is down</span></div></label>
+          <label class="choice p-high" data-group="prioGroup"><input type="radio" name="priority" value="high"><div class="radio-dot"></div><div><span class="choice-sr">Visok — značajan uticaj, nema zaobilaznog rešenja</span><span class="choice-en">High — significant impact, no workaround</span></div></label>
+          <label class="choice p-med" data-group="prioGroup"><input type="radio" name="priority" value="medium"><div class="radio-dot"></div><div><span class="choice-sr">Srednji — važno, postoji zaobilazno rešenje</span><span class="choice-en">Medium — important, workaround exists</span></div></label>
+          <label class="choice p-low" data-group="prioGroup"><input type="radio" name="priority" value="low"><div class="radio-dot"></div><div><span class="choice-sr">Nizak — bilo bi lepo imati</span><span class="choice-en">Low — nice to have</span></div></label>
         </div>
         <div class="error-msg" id="err-prioGroup">Izaberite prioritet / Please select a priority</div>
       </div>
@@ -538,13 +538,31 @@ textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
 <script>
   document.getElementById('subdate').valueAsDate = new Date();
 
-  function pick(el, groupId) {
+  function pick(label, groupId) {
     document.querySelectorAll('#' + groupId + ' .choice').forEach(c => c.classList.remove('sel'));
-    el.classList.add('sel');
-    el.querySelector('input[type="radio"]').checked = true;
+    label.classList.add('sel');
     const err = document.getElementById('err-' + groupId);
     if (err) err.classList.remove('show');
   }
+
+  document.querySelectorAll('.choice input[type="radio"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      var label = this.closest('.choice');
+      var groupId = label.getAttribute('data-group');
+      pick(label, groupId);
+    });
+  });
+
+  document.querySelectorAll('.choice').forEach(function(label) {
+    label.addEventListener('click', function(e) {
+      var radio = this.querySelector('input[type="radio"]');
+      if (radio) {
+        radio.checked = true;
+        var groupId = this.getAttribute('data-group');
+        pick(this, groupId);
+      }
+    });
+  });
 
   function validate() {
     let ok = true;
